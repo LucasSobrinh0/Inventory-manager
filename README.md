@@ -36,3 +36,7 @@ php artisan serve
 
 RENOMEIE O .ENV.EXAMPLE PARA .env
 
+PARA CRIAR SEU  CRUD
+
+php artisan make:model Nome -mcr
+
