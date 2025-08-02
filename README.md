@@ -29,3 +29,7 @@ E libere o
 extension=fileinfo
 extension=sqlite3
 extension=pdo_sqlite
+
+digite para iniciar o php
+
+php artisan serve
