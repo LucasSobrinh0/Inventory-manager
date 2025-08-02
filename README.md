@@ -33,3 +33,6 @@ extension=pdo_sqlite
 digite para iniciar o php
 
 php artisan serve
+
+RENOMEIE O .ENV.EXAMPLE PARA .env
+
