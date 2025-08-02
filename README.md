@@ -27,4 +27,5 @@ C:\php\php.ini
 
 E libere o 
 extension=fileinfo
-
+extension=sqlite3
+extension=pdo_sqlite
