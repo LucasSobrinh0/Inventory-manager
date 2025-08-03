@@ -13,6 +13,7 @@
 <body>
     <nav>
         <a href="{{ route('categories.index') }}">Categorias</a>
+        <a href="{{ route('products.index') }}">Produtos</a>
     </nav>
 
     <div class="container">
