@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Product;
 use App\Models\Categories;
+use App\Models\Stock;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
@@ -22,13 +23,14 @@ class ProductController extends Controller
 
     public function store(Request $request)
     {
-        $request->validate([
+        $data = $request->validate([
             'name' => 'required|string|max:100',
-            'serial' => 'required|string|max:50',
+            'serial' => 'required|string|max:50|unique:products,serial',
             'category_id' => 'required|exists:categories,id',
         ]);
 
-        Product::create($request->only('name', 'serial', 'category_id'));
+        $product = Product::create($data);
+        $product->setInStock($product);
 
         return redirect()->route('products.index');
     }

@@ -13,11 +13,11 @@
         @php($currentType = old('type'))
         <select name="type" id="type" required>
             <option disabled {{ is_null($currentType) ? 'selected' : '' }}>Selecione o tipo</option>
-            <option value=1>Entregar</option>
-            <option value=2>Devolver</option>
-            <!-- @foreach (Movements::TYPES as $name => $value)
-                <option value="{{ $value }}" {{ $currentType == $value ? 'selected' : '' }}>{{ $name }}</option>
-            @endforeach -->
+            @foreach (Movements::TYPES as $label => $value)
+                <option value="{{ $value }}" {{ (string)$currentType === (string)$value ? 'selected' : '' }}>
+                    {{ $label }}
+                </option>
+            @endforeach
         </select><br><br>
 
         <label for="description">Descrição:</label>

@@ -8,29 +8,33 @@ use App\Models\Product;
 
 class Movements extends Model
 {
-    public const TYPES = [
-        'Entry' => 1,
-        'Exit' => 2,
-    ];
-
     protected $fillable = ['type', 'description', 'person_id', 'product_id'];
 
-    protected $casts = [
-        'type' => 'integer',
+    public const TYPE_DELIVERY = 1;
+    public const TYPE_RETURN = 0;
+
+    public const TYPES = [
+        'Entrega' => self::TYPE_DELIVERY,
+        'Devolução' => self::TYPE_RETURN,
     ];
 
     public function person()
     {
-        return $this->belongsTo(Person::class, 'person_id');
+        return $this->belongsTo(Person::class);
     }
 
     public function product()
     {
-        return $this->belongsTo(Product::class, 'product_id');
+        return $this->belongsTo(Product::class);
     }
 
-    public function getTypeNameAttribute()
+    public function getTypeLabelAttribute(): string
     {
-        return array_search($this->type, self::TYPES) ?? 'Unknown';
+        return match ($this->type) {
+            self::TYPE_DELIVERY => 'Entrega',
+            self::TYPE_RETURN => 'Devolução',
+            default => 'Desconhecido',
+        };
     }
 }
+
