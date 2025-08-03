@@ -14,6 +14,7 @@
     <nav>
         <a href="{{ route('categories.index') }}">Categorias</a>
         <a href="{{ route('products.index') }}">Produtos</a>
+        <a href="{{ route('people.index') }}">Pessoas</a>
     </nav>
 
     <div class="container">

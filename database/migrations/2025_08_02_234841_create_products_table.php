@@ -16,7 +16,7 @@ return new class extends Migration
             $table->id();
             $table->string("name", 100); // até 100 caracteres
             // $table->integer("quantity"); // até 1000 caracteres. mas nao pode colocar no sql
-            $table->string("serial", 50)->nullable(); // até 50 caracteres e campo pode ser nulo
+            $table->string("serial", 50)->unique(); // até 50 caracteres e campo pode ser nulo
             $table->foreignId('category_id')->constrained('categories')->onDelete('cascade');
             $table->timestamps();
         });
