@@ -40,4 +40,4 @@ PARA CRIAR SEU  CRUD
 
 php artisan make:model Nome -mcr
 
-php artisan migrate:refresh
+php artisan migrate
