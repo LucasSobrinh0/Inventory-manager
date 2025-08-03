@@ -4,6 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 use App\Models\Person;
+use App\Models\Product;
 
 use function Laravel\Prompts\table;
 
@@ -17,8 +18,9 @@ return new class extends Migration
         Schema::create('movements', function (Blueprint $table) {
             $table->id();
             $table->integer('type');
-            $table->string('description');
+            $table->string('description')->nullable();
             $table->foreignId('person_id')->constrained('people')->onDelete('cascade');
+            $table->foreignId('product_id')->constrained('products')->onDelete('cascade');
             $table->timestamps();
         });
     }

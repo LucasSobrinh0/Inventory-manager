@@ -15,6 +15,7 @@
         <a href="{{ route('categories.index') }}">Categorias</a>
         <a href="{{ route('products.index') }}">Produtos</a>
         <a href="{{ route('people.index') }}">Pessoas</a>
+        <a href="{{ route('movements.index') }}">Movimentação</a>
     </nav>
 
     <div class="container">

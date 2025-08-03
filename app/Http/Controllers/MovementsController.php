@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\Movements;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\Product;
+use App\Models\Person;
+use Illuminate\Validation\Rule;
 
 class MovementsController extends Controller
 {
@@ -13,7 +16,8 @@ class MovementsController extends Controller
      */
     public function index()
     {
-        //
+        $movements = Movements::with(['person', 'product'])->latest()->paginate(25);
+        return view('movements.index', compact('movements'));
     }
 
     /**
@@ -21,7 +25,9 @@ class MovementsController extends Controller
      */
     public function create()
     {
-        //
+        $people = Person::orderBy('name')->get();
+        $products = Product::orderBy('name')->get();
+        return view('movements.create', compact('people', 'products'));
     }
 
     /**
@@ -29,7 +35,16 @@ class MovementsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->validate([
+            'type' => ['required', 'integer', Rule::in(array_values(Movements::TYPES))],
+            'description' => 'nullable|string|max:255',
+            'person_id' => 'required|exists:people,id',
+            'product_id' => 'required|exists:products,id',
+        ]);
+
+        Movements::create($data);
+
+        return redirect()->route('movements.index')->with('success', 'Movimentação criada.');
     }
 
     /**
@@ -37,7 +52,7 @@ class MovementsController extends Controller
      */
     public function show(Movements $movements)
     {
-        //
+        return view('movements.show', compact('movements'));
     }
 
     /**
@@ -45,7 +60,9 @@ class MovementsController extends Controller
      */
     public function edit(Movements $movements)
     {
-        //
+        $people = Person::orderBy('name')->get();
+        $products = Product::orderBy('name')->get();
+        return view('movements.edit', compact('movements', 'people', 'products'));
     }
 
     /**
@@ -53,7 +70,16 @@ class MovementsController extends Controller
      */
     public function update(Request $request, Movements $movements)
     {
-        //
+        $data = $request->validate([
+            'type' => ['required', 'integer', Rule::in(array_values(Movements::TYPES))],
+            'description' => 'nullable|string|max:255',
+            'person_id' => 'required|exists:people,id',
+            'product_id' => 'required|exists:products,id',
+        ]);
+
+        $movements->update($data);
+
+        return redirect()->route('movements.index')->with('success', 'Movimentação atualizada.');
     }
 
     /**
@@ -61,6 +87,8 @@ class MovementsController extends Controller
      */
     public function destroy(Movements $movements)
     {
-        //
+        $movements->delete();
+
+        return redirect()->route('movements.index')->with('success', 'Movimentação removida.');
     }
 }
