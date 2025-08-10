@@ -36,6 +36,8 @@ php artisan serve
 
 RENOMEIE O .ENV.EXAMPLE PARA .env
 
+php artisan make:migration nome_da_tabela
+
 PARA CRIAR SEU  CRUD
 
 php artisan make:model Nome -mcr
